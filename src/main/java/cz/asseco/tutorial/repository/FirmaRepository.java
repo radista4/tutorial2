@@ -9,4 +9,5 @@ import java.util.List;
 @Repository
 public interface FirmaRepository extends JpaRepository<Firma, Long> {
     List<Firma> findFirmaByIco(String ico);
+    List<Firma> findFirmaByNazevFirmy(String nazevFirmy);
 }

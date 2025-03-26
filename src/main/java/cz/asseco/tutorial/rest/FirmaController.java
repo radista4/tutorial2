@@ -57,4 +57,21 @@ public class FirmaController {
 
         return new ResponseEntity<>(data, HttpStatus.OK);
     }
+
+
+    @GetMapping("/find-by-name/{nazevFirmy}")
+    public ResponseEntity<ArrayList<FirmaDto>> findByNazev(@PathVariable String nazevFirmy) {
+        // TODO kontrola validace vstupu
+        ArrayList<FirmaDto> data = firmaService.findByName(nazevFirmy);
+
+        if (nazevFirmy == null || nazevFirmy.trim().isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        if (CollectionUtils.isEmpty(data)) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+
+        return new ResponseEntity<>(data, HttpStatus.OK);
+    }
 }

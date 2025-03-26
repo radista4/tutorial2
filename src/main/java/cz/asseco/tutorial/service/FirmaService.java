@@ -56,10 +56,24 @@ public class FirmaService {
     public FirmaDto findById(Long id) {
         Optional<Firma> optionalFirma = firmaRepository.findById(id);
 
-        // TODO validace výstpu
+        // TODO validace výstupu
         Firma firma = optionalFirma.get();
 
         return dozerMapper.map(firma, FirmaDto.class);
 
+    }
+
+    @Transactional
+    public ArrayList<FirmaDto> findByName(String nazevFirmy) {
+        List<Firma> data = firmaRepository.findFirmaByNazevFirmy(nazevFirmy);
+        ArrayList<FirmaDto> mappedData = new ArrayList<>();
+
+        for (Firma firma : data) {
+            if (firma != null) {
+                mappedData.add(dozerMapper.map(firma, FirmaDto.class));
+            }
+        }
+
+        return mappedData;
     }
 }
