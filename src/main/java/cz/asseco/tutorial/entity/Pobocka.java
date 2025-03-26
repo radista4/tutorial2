@@ -6,7 +6,7 @@ import lombok.Data;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity (name = "POBOCKA")
+@Entity(name = "POBOCKA")
 @Data
 public class Pobocka {
 
@@ -21,7 +21,7 @@ public class Pobocka {
     @Column(name = "POCET_TERMINALU")
     private int pocetTerminalu;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "FIRMA_ID", nullable = false)
     private Firma firma;
 
