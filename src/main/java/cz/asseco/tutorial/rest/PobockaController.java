@@ -1,7 +1,7 @@
 package cz.asseco.tutorial.rest;
 
-import cz.asseco.tutorial.dto.DummyDto;
-import cz.asseco.tutorial.service.DummyService;
+import cz.asseco.tutorial.dto.PobockaDto;
+import cz.asseco.tutorial.service.PobockaService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,14 +11,14 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 
 @RestController
-@RequestMapping("/dummy") // Prefix "/api/users"
+@RequestMapping("/pobocka")
 @RequiredArgsConstructor
-public class DummyRest {
-    private final DummyService dummyService;
+public class PobockaController {
+    private final PobockaService pobockaService;
 
     @GetMapping("/get-all")
-    public ResponseEntity<ArrayList<DummyDto>> getAll() {
-        ArrayList<DummyDto> data = dummyService.getAll();
+    public ResponseEntity<ArrayList<PobockaDto>> getAll() {
+        ArrayList<PobockaDto> data = pobockaService.getAll();
 
         if (CollectionUtils.isEmpty(data)) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -28,8 +28,8 @@ public class DummyRest {
     }
 
     @PostMapping("/insert")
-    public ResponseEntity<Long> saveData(@RequestBody DummyDto dto) {
-        Long id = dummyService.saveData(dto);
+    public ResponseEntity<Long> insertPobocka(@RequestBody PobockaDto dto) {
+        Long id = pobockaService.insert(dto);
 
         return new ResponseEntity<>(id, HttpStatus.OK);
     }

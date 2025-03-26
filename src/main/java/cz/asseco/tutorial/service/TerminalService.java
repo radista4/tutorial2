@@ -6,6 +6,7 @@ import cz.asseco.tutorial.repository.TerminalRepository;
 import lombok.RequiredArgsConstructor;
 import org.dozer.Mapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,14 +17,21 @@ public class TerminalService {
     private final TerminalRepository terminalRepository;
     private final Mapper dozerMapper;
 
+    @Transactional
     public ArrayList<TerminalDto> getAll() {
         List<Terminal> data = terminalRepository.findAll();
         ArrayList<TerminalDto> mappedData = new ArrayList<>();
 
-        for (Terminal terminal: data) {
+        for (Terminal terminal : data) {
             mappedData.add(dozerMapper.map(terminal, TerminalDto.class));
         }
 
         return mappedData;
+    }
+
+    @Transactional
+    public long insert(TerminalDto dto) {
+        Terminal insertedFirma = terminalRepository.save(dozerMapper.map(dto, Terminal.class));
+        return insertedFirma.getId();
     }
 }

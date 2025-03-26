@@ -5,7 +5,7 @@ import lombok.Data;
 
 import java.util.List;
 
-@Entity (name = "FIRMA")
+@Entity(name = "FIRMA")
 @Data
 public class Firma {
 
@@ -23,8 +23,7 @@ public class Firma {
     @Column(name = "NAZEV_FIRMY")
     private String nazevFirmy;
 
-    @Column(name = "POBOCKY")
-    @OneToMany(mappedBy = "firma", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "firma", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Pobocka> pobocky;
 }
 
