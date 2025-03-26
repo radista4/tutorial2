@@ -33,4 +33,28 @@ public class FirmaController {
 
         return new ResponseEntity<>(id, HttpStatus.OK);
     }
+
+    @GetMapping("/find-by-ico/{ico}")
+    public ResponseEntity<ArrayList<FirmaDto>> findByIco(@PathVariable String ico) {
+        // TODO kontrola validace vstupu
+        ArrayList<FirmaDto> data = firmaService.findByIco(ico);
+
+        if (CollectionUtils.isEmpty(data)) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+
+        return new ResponseEntity<>(data, HttpStatus.OK);
+    }
+
+    @GetMapping("/find-by-id/{id}")
+    public ResponseEntity<FirmaDto> findById(@PathVariable Long id) {
+        // TODO kontrola validace vstupu
+        FirmaDto data = firmaService.findById(id);
+
+        if (data == null) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+
+        return new ResponseEntity<>(data, HttpStatus.OK);
+    }
 }
