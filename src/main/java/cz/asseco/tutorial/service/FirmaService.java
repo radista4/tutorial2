@@ -1,6 +1,7 @@
 package cz.asseco.tutorial.service;
 
 import cz.asseco.tutorial.dto.FirmaDto;
+import cz.asseco.tutorial.dto.VypisTerminaluDto;
 import cz.asseco.tutorial.entity.Firma;
 import cz.asseco.tutorial.repository.FirmaRepository;
 import lombok.RequiredArgsConstructor;
@@ -75,5 +76,10 @@ public class FirmaService {
         }
 
         return mappedData;
+    }
+
+    @Transactional
+    public VypisTerminaluDto findTerminal(String nazevFirmy) {
+       return null;
     }
 }

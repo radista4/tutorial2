@@ -39,6 +39,14 @@ public class FirmaController {
         // TODO kontrola validace vstupu
         ArrayList<FirmaDto> data = firmaService.findByIco(ico);
 
+        if (ico == null || ico.trim().isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        if (!ico.matches("\\d+")) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+
         if (CollectionUtils.isEmpty(data)) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
