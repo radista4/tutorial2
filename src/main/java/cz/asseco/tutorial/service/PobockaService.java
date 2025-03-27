@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -33,5 +34,17 @@ public class PobockaService {
     public long insert(PobockaDto dto) {
         Pobocka insertedPobocka = pobockaRepository.save(dozerMapper.map(dto, Pobocka.class));
         return insertedPobocka.getId();
+    }
+
+    @Transactional
+    public PobockaDto findById(Long id) {
+        Optional<Pobocka> optionalPobocka = pobockaRepository.findById(id);
+
+        if (optionalPobocka.isEmpty()) {
+            return null;
+        }
+        Pobocka pobocka = optionalPobocka.get();
+
+        return dozerMapper.map(pobocka, PobockaDto.class);
     }
 }

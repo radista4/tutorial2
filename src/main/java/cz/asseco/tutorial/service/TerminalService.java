@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -33,5 +34,17 @@ public class TerminalService {
     public long insert(TerminalDto dto) {
         Terminal insertedFirma = terminalRepository.save(dozerMapper.map(dto, Terminal.class));
         return insertedFirma.getId();
+    }
+
+    @Transactional
+    public TerminalDto findById(Long id) {
+        Optional<Terminal> optionalTerminal = terminalRepository.findById(id);
+
+        if (optionalTerminal.isEmpty()) {
+            return null;
+        }
+        Terminal terminal = optionalTerminal.get();
+
+        return dozerMapper.map(terminal, TerminalDto.class);
     }
 }

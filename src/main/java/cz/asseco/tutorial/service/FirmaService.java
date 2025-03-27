@@ -57,11 +57,12 @@ public class FirmaService {
     public FirmaDto findById(Long id) {
         Optional<Firma> optionalFirma = firmaRepository.findById(id);
 
-        // TODO validace výstupu
+        if (optionalFirma.isEmpty()) {
+            return null;
+        }
         Firma firma = optionalFirma.get();
 
         return dozerMapper.map(firma, FirmaDto.class);
-
     }
 
     @Transactional
@@ -80,6 +81,6 @@ public class FirmaService {
 
     @Transactional
     public VypisTerminaluDto findTerminal(String nazevFirmy) {
-       return null;
+        return null;
     }
 }
