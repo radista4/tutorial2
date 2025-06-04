@@ -1,14 +1,17 @@
-FROM eclipse-temurin:21-jdk AS build
+# Build fáze
+FROM ghcr.io/graalvm/graalvm-ce:21.3.3 AS builder
 
 WORKDIR /app
 COPY . .
 
-RUN chmod +x mvnw
-RUN ./mvnw package -DskipTests
+RUN gu install native-image
+RUN ./mvnw -Pnative -DskipTests package
 
-FROM eclipse-temurin:21-jdk
+# Runtime fáze – čistá binárka bez JVM
+FROM alpine:latest
 WORKDIR /app
 
-COPY --from=build /app/target/*.jar app.jar
+COPY --from=builder /app/target/tutorial /app/tutorial
+RUN chmod +x /app/tutorial
 
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT ["/app/tutorial"]

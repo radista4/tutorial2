@@ -110,7 +110,41 @@
                     </excludes>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.graalvm.buildtools</groupId>
+                <artifactId>native-maven-plugin</artifactId>
+                <version>0.10.1</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>compile-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
         </plugins>
     </build>
+    <profiles>
+        <profile>
+            <id>native</id>
+            <properties>
+                <spring.aot.enabled>true</spring.aot.enabled>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.springframework.boot</groupId>
+                        <artifactId>spring-boot-maven-plugin</artifactId>
+                        <configuration>
+                            <image>
+                                <builder>paketobuildpacks/builder:tiny</builder>
+                            </image>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
 </project>
