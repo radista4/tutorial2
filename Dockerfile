@@ -1,5 +1,5 @@
 # Fáze 1: Build native image pomocí GraalVM
-FROM ghcr.io/graalvm/graalvm-ce:21.3.3 AS builder
+FROM ghcr.io/graalvm/native-image-community:21 AS builder
 
 WORKDIR /app
 COPY . .
