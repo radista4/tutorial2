@@ -4,7 +4,6 @@ FROM ghcr.io/graalvm/native-image-community:21 AS builder
 WORKDIR /app
 COPY . .
 
-RUN gu install native-image
 RUN ./mvnw -Pnative -DskipTests package
 
 # Fáze 2: Spuštění – čistý Alpine Linux, žádná JVM potřeba
